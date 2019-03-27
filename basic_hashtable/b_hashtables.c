@@ -71,8 +71,9 @@ unsigned int hash(char *str, int max)
 BasicHashTable *create_hash_table(int capacity)
 {
   BasicHashTable *ht;
+  ht = (BasicHashTable *)malloc(sizeof(BasicHashTable));
   ht -> capacity = capacity;
-  ht -> storage = calloc(capacity, sizeof(Pair *));
+  ht -> storage = (Pair**)calloc(capacity, sizeof(Pair*));
   return ht;
 }
 
