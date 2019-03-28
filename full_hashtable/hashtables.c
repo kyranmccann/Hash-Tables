@@ -99,7 +99,19 @@ void hash_table_insert(HashTable *ht, char *key, char *value)
   }
   else
   {
-    
+    while (ht -> storage[new_index] != 0)
+    {
+      if (strcmp(ht -> storage[new_index] -> key, key) == 0){
+        ht -> storage[new_index] -> value = value;
+        break;
+      }
+      else if (strcmp(ht -> storage[new_index] -> key, key) != 0 && ht -> storage[new_index] -> next == NULL)
+      {
+        ht -> storage[new_index] -> next = new_node;
+        break
+      }
+      ht -> storage[new_index] = ht -> storage[new_index] -> next;
+    }
   }
 }
 
