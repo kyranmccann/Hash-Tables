@@ -91,7 +91,16 @@ HashTable *create_hash_table(int capacity)
  */
 void hash_table_insert(HashTable *ht, char *key, char *value)
 {
-
+  LinkedPair *new_node = create_pair(key, value);
+  unsigned int new_index = hash(key, ht -> capacity);
+  if (ht -> storage[new_index] == 0)
+  {
+    ht -> storage[new_index] = new_node;
+  }
+  else
+  {
+    
+  }
 }
 
 /*
