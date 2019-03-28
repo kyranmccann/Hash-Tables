@@ -6,8 +6,8 @@
   Hash table key/value pair with linked list pointer.
 
   Note that an instance of `LinkedPair` is also a node in a linked list.
-  More specifically, the `next` field is a pointer pointing to the the 
-  next `LinkedPair` in the list of `LinkedPair` nodes. 
+  More specifically, the `next` field is a pointer pointing to the the
+  next `LinkedPair` in the list of `LinkedPair` nodes.
  */
 typedef struct LinkedPair {
   char *key;
@@ -74,7 +74,9 @@ unsigned int hash(char *str, int max)
 HashTable *create_hash_table(int capacity)
 {
   HashTable *ht;
-
+  ht = (HashTable *)malloc(sizeof(BasicHashTable));
+  ht -> capacity = capacity;
+  ht -> storage = calloc(capacity, sizeof(Pair*));
   return ht;
 }
 
