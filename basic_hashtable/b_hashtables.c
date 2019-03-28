@@ -86,7 +86,7 @@ BasicHashTable *create_hash_table(int capacity)
  ****/
 void hash_table_insert(BasicHashTable *ht, char *key, char *value)
 {
-  int index = hash(key, ht -> capacity);
+  unsigned int index = hash(key, ht -> capacity);
 
   if (ht -> storage[index] != NULL)
   {
@@ -107,16 +107,17 @@ void hash_table_insert(BasicHashTable *ht, char *key, char *value)
  ****/
 void hash_table_remove(BasicHashTable *ht, char *key)
 {
-  int index = hash(key, ht -> capacity);
+  unsigned int index = hash(key, ht -> capacity);
 
   if (ht -> storage[index] == NULL)
   {
     printf("ERROR: That key not found");
-    return NULL;
+    return;
   }
   else
   {
     destroy_pair(ht -> storage[index]);
+    ht -> storage[index] = NULL;
   }
 }
 
@@ -127,15 +128,13 @@ void hash_table_remove(BasicHashTable *ht, char *key)
  ****/
 char *hash_table_retrieve(BasicHashTable *ht, char *key)
 {
-  int index = hash(key, ht -> capacity);
+  unsigned int index = hash(key, ht -> capacity);
 
   if (ht -> storage[index] != NULL)
   {
-    if (strcmp(ht -> storage[index] -> key, key) == 0)
-    {
-      return ht -> storage[index] -> value;
-    }
+    return ht -> storage[index] -> value;
   }
+  printf("ERROR: Could not find key.\n");
   return NULL;
 }
 
@@ -156,6 +155,7 @@ void destroy_hash_table(BasicHashTable *ht)
       }
     }
     free(ht);
+    free(ht -> storage);
   }
 }
 
